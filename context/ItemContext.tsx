@@ -5,6 +5,8 @@ import { Item } from "../types";
 type ItemContextType = {
   items: Item[];
   addItem: (item: Item) => void;
+  updateItem: (item: Item) => void;
+  deleteItem: (id: string) => void;
   toggleTodo: (id: string) => void;
 };
 
@@ -30,6 +32,16 @@ export const ItemProvider = ({ children }: { children: React.ReactNode }) => {
     setItems((prev) => [...prev, item]);
   };
 
+  const updateItem = (updated: Item) => {
+    setItems((prev) =>
+      prev.map((i) => (i.id === updated.id ? updated : i))
+    );
+  };
+
+  const deleteItem = (id: string) => {
+    setItems((prev) => prev.filter((i) => i.id !== id));
+  };
+
   const toggleTodo = (id: string) => {
     setItems((prev) =>
       prev.map((i) =>
@@ -39,7 +51,15 @@ export const ItemProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <ItemContext.Provider value={{ items, addItem, toggleTodo }}>
+    <ItemContext.Provider
+      value={{
+        items,
+        addItem,
+        updateItem,
+        deleteItem,
+        toggleTodo,
+      }}
+    >
       {children}
     </ItemContext.Provider>
   );

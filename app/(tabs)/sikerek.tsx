@@ -1,5 +1,5 @@
 import { useRouter } from "expo-router";
-import { FlatList, Text, View } from "react-native";
+import { FlatList, Pressable, Text, View } from "react-native";
 import FAB from "../../components/FAB";
 import GlassCard from "../../components/GlassCard";
 import GradientBackground from "../../components/GradientBackground";
@@ -19,9 +19,22 @@ export default function Sikerek() {
         data={list}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
+
+           <Pressable
+                  onPress={() =>
+                    router.push({
+                      pathname: "/modal",
+                      params: {
+                        id: item.id,
+                        type: item.type,
+                      },
+                    })
+                  }
+                >
           <GlassCard>
             <Text style={{ fontSize: 18 }}>{item.title}</Text>
           </GlassCard>
+          </Pressable>
         )}
       />
 

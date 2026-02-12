@@ -7,7 +7,7 @@ export default function AnimatedCheckbox({ checked, onPress }: any) {
 
   useEffect(() => {
     scale.value = withSpring(checked ? 1.2 : 1);
-  }, [checked]);
+  }, [checked, scale]);
 
   const style = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],

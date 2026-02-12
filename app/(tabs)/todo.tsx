@@ -1,10 +1,12 @@
 import { useRouter } from "expo-router";
-import { FlatList, Text, View } from "react-native";
+import { FlatList, Pressable, Text, View } from "react-native";
 import AnimatedCheckbox from "../../components/AnimatedCheckbox";
 import FAB from "../../components/FAB";
 import GlassCard from "../../components/GlassCard";
 import GradientBackground from "../../components/GradientBackground";
 import { useItems } from "../../context/ItemContext";
+
+
 
 export default function TodoScreen() {
   const { items, toggleTodo } = useItems();
@@ -20,6 +22,17 @@ export default function TodoScreen() {
         data={todos}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
+            <Pressable
+        onPress={() =>
+          router.push({
+            pathname: "/modal",
+            params: {
+              id: item.id,
+              type: item.type,
+            },
+          })
+        }
+      >
           <GlassCard>
             <AnimatedCheckbox
               checked={item.completed}
@@ -27,6 +40,7 @@ export default function TodoScreen() {
             />
             <Text style={{ fontSize: 18 }}>{item.title}</Text>
           </GlassCard>
+          </Pressable>
         )}
       />
 
